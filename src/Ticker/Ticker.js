@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './ticker.css';
 
-function Ticker (props) {
-    const {curr} = props;
-    return {curr}
+class Ticker extends Component {
+    render(){
+        const {curr} = this.props;
+        return {curr}
+    }
 }
 
 export default Ticker
