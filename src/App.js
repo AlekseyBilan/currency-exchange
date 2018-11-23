@@ -5,7 +5,7 @@ import './ticker.css';
 
 class App extends Component {
     state = {
-        selectedPairs: []
+        selectedPairs: ['btc_usd']
     };
 
     render() {
