@@ -35,9 +35,12 @@ app.get("/items", function (request, response) {
 
 app.post("/value", urlencodedParser, function (request, response) {
     if (!request.body) return response.sendStatus(400);
-    var result = null, d = new Date();
-    for (var prop in items) {
-        if(items[prop].name === request.body.name) result = Number( Number(items[prop].val) + d.getTime()/items[prop].val).toFixed(2).toString();
+    let result = null, d = new Date(), name = request.body.name;
+    for (let prop in items) {
+        if(items[prop].name === name){
+            result = Number( Number(items[prop].val) + d.getTime()/items[prop].val).toFixed(2).toString();
+            break;
+        }
     }
     console.log('result ', result);
     response.send(result);
