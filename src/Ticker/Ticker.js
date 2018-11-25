@@ -32,9 +32,16 @@ class Ticker extends Component {
             });
     };
 
-    componentDidMount(){
-        this.fetchData();
-        this.updateCurrInterval = setInterval(this.fetchData, 5000);
+    componentWillReceiveProps(nextProp){
+        if(nextProp.isActive && !this.props.isActive){
+            this.fetchData();
+            this.updateCurrInterval = setInterval(this.fetchData, 5000);
+        } else if (!nextProp.isActive && this.props.isActive){
+            clearInterval(this.updateCurrInterval);
+            this.setState({
+                value: '-'
+            })
+        }
     }
 
     componentWillUnmount(){
@@ -47,15 +54,6 @@ class Ticker extends Component {
                     <p>{this.state.value}</p>
                 </div>
     }
-
-    handlerClick = (addToList, index, event) => {
-        this.setState(
-            (state) => {
-                console.log(state);
-                return {isActive: !state.isActive}
-            }, addToList(index)
-        )
-    };
 }
 
 export default Ticker

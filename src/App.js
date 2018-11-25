@@ -5,7 +5,7 @@ import './ticker.css';
 
 class App extends Component {
     state = {
-        selectedPairs: ['btc_usd']
+        activePairs: []
     };
 
     render() {
@@ -18,7 +18,7 @@ class App extends Component {
                 </aside>
                 <main>
                     {
-                        this.state.selectedPairs.map( pair => <Ticker key = {pair} pair = {pair}/>)
+                        currencies.map( pair => <Ticker key = {pair} pair = {pair} isActive =  {this.state.activePairs.includes(pair)} />)
                     }
                 </main>
             </div>
@@ -37,14 +37,14 @@ class App extends Component {
         const checked = event.target.checked;
 
         this.setState (//async function
-            ({selectedPairs}) => {
-                let pairs = [...selectedPairs]; //selectedPairs.slice()
+            ({activePairs}) => {
+                let pairs = [...activePairs]; //selectedPairs.slice()
                 if(checked && !pairs.includes(currency)){
                     pairs.push(currency);
                 } else {
                     pairs = pairs.filter(pair => pair !== currency);
                 }
-                return {selectedPairs: pairs}
+                return {activePairs: pairs}
             }
         )
     }
